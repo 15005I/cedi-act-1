@@ -1,20 +1,32 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      EA6
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+  <form [formGroup]="usuario" (ngSubmit)="guardarDatos()">
+    <ion-item>
+      <ion-label>Nombre:</ion-label>
+      <ion-input formControlName="nombre"></ion-input>
+    </ion-item>
+    <ion-label color="danger" *ngIf="usuario.controls.nombre.errors?.['required'] && (usuario.touched || usuario.dirty)">* El nombre es obligatorio </ion-label>
+    <ion-item>
+      <ion-label>Email:</ion-label>
+      <ion-input formControlName="email"></ion-input>
+    </ion-item>
+    <ion-label color="danger" *ngIf="usuario.controls.email.errors?.['email'] && (usuario.touched || usuario.dirty)">* El email no es válido.</ion-label>
+    <ion-item>
+      <ion-label>Edad:</ion-label>
+      <ion-input formControlName="edad"></ion-input>
+    </ion-item>
+    <ion-label color="danger" *ngIf="usuario.controls.edad.errors?.['required'] && (usuario.touched || usuario.dirty)">* La edad es obligatoria.</ion-label><br>
+    <label><input type="checkbox" formControlName="aceptar">Acepto los términos y condiciones</label>
+    <p class="ion-text-center">
+      <ion-button type="submit" [disabled]="!usuario.valid" routerLink="/registro">Registrarse</ion-button>
+    </p> 
+ </form>
+ <p class="ion-padding">{{ usuario.controls.nombre.value }} <br> {{ usuario.controls.email.value }} <br> {{ usuario.controls.edad.value }}</p>
 </ion-content>
