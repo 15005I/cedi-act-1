@@ -1,32 +1,43 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      EA6
+      EA7
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <form [formGroup]="usuario" (ngSubmit)="guardarDatos()">
+<div style="height: 100vh; background-color: rgb(141, 141, 141);">
+  <br>
+  <form [formGroup]="tarea" (ngSubmit)="nTarea()">
     <ion-item>
       <ion-label>Nombre:</ion-label>
       <ion-input formControlName="nombre"></ion-input>
     </ion-item>
-    <ion-label color="danger" *ngIf="usuario.controls.nombre.errors?.['required'] && (usuario.touched || usuario.dirty)">* El nombre es obligatorio </ion-label>
+    <ion-label color="danger" *ngIf="tarea.controls.nombre.errors?.['required'] && (tarea.touched || tarea.dirty)">* El nombre es obligatorio </ion-label>
     <ion-item>
-      <ion-label>Email:</ion-label>
-      <ion-input formControlName="email"></ion-input>
+      <ion-label>Fecha:</ion-label>
+      <ion-input formControlName="fecha" type="datetime-local"></ion-input>
     </ion-item>
-    <ion-label color="danger" *ngIf="usuario.controls.email.errors?.['email'] && (usuario.touched || usuario.dirty)">* El email no es válido.</ion-label>
+    <ion-label color="danger" *ngIf="tarea.controls.fecha.errors?.['required'] && (tarea.touched || tarea.dirty)">* La fecha es obligatoria </ion-label>
     <ion-item>
-      <ion-label>Edad:</ion-label>
-      <ion-input formControlName="edad"></ion-input>
+      <ion-label>Descripcion:</ion-label>
+      <ion-input formControlName="descripcion"></ion-input>
     </ion-item>
-    <ion-label color="danger" *ngIf="usuario.controls.edad.errors?.['required'] && (usuario.touched || usuario.dirty)">* La edad es obligatoria.</ion-label><br>
-    <label><input type="checkbox" formControlName="aceptar">Acepto los términos y condiciones</label>
     <p class="ion-text-center">
-      <ion-button type="submit" [disabled]="!usuario.valid" routerLink="/registro">Registrarse</ion-button>
-    </p> 
+      <ion-button type="submit">Añadir tarea</ion-button>
+    </p>
  </form>
- <p class="ion-padding">{{ usuario.controls.nombre.value }} <br> {{ usuario.controls.email.value }} <br> {{ usuario.controls.edad.value }}</p>
-</ion-content>
+    <br><br><br>
+    <div class="container" style="background-color: rgb(255, 255, 255);">
+      <ul style="list-style-type: none; padding-left: 0;">
+        <li *ngFor="let tarea of tareas">
+          <div><b>{{ tarea.nombre }}</b></div>
+          <div>{{ tarea.descripcion }}</div>
+          <div>{{ tarea.fecha }}</div>
+          <div>
+            <ion-checkbox [(ngModel)]="tarea.completada" style="width: 140px;"></ion-checkbox>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
