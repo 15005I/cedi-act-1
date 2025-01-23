@@ -7,6 +7,9 @@
 </ion-header>
 
 <div style="height: 100vh; background-color: rgb(141, 141, 141);">
+  <header style="background-color: rgb(141, 141, 141); padding: 20px;">
+    <h1 class="ion-text-center" style="color: black;">Lista de tareas</h1>
+  </header>
   <br>
   <form [formGroup]="tarea" (ngSubmit)="nTarea()">
     <ion-item>
@@ -24,13 +27,13 @@
       <ion-input formControlName="descripcion"></ion-input>
     </ion-item>
     <p class="ion-text-center">
-      <ion-button type="submit">Añadir tarea</ion-button>
+      <ion-button type="submit" [disabled]="!tarea.valid">Añadir tarea</ion-button>
     </p>
  </form>
     <br><br><br>
-    <div class="container" style="background-color: rgb(255, 255, 255);">
+    <div class="container" style="background-color: rgb(141, 141, 141);">
       <ul style="list-style-type: none; padding-left: 0;">
-        <li *ngFor="let tarea of tareas">
+        <li *ngFor="let tarea of tareas" [ngClass]="{'completada': tarea.completada, 'incompleta': !tarea.completada}">
           <div><b>{{ tarea.nombre }}</b></div>
           <div>{{ tarea.descripcion }}</div>
           <div>{{ tarea.fecha }}</div>
